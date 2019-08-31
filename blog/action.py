@@ -3,6 +3,8 @@ import os
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
 from django.conf import settings
+from django.http import HttpResponse
+
 from blog.models import UserInfo, Blog
 
 # 加密解密方式
@@ -72,7 +74,7 @@ class LoginHandle:
 class LoginCool:
     def __init__(self, request):
         self.request = request
-        self.ret_dic = {"result": ""}
+        self.ret_dic = {"result": "", "data": ''}
         self.flag = 1
 
     def post_login(self):
@@ -80,24 +82,39 @@ class LoginCool:
         upwd = self.request.POST.get('lupwd')
         captcha = self.request.POST.get('captcha')
         rem_pwd = self.request.POST.get('rem_pwd')
-        user = UserInfo.objects.filter(name=uname)
-        if user:
-            cpwd = check_password(upwd, user[0].password)
-            print("返回值:%s" % cpwd)
-            if cpwd:
-                # 用户，密码验证正确存入session
-                self.request.session['uname'] = uname
-                print("session 存入成功")
-                self.request.session.set_expiry(0)
-                self.ret_dic["result"] = self.flag
-                return self.ret_dic
+        captcha_text = ''.join(self.request.session['captcha_text'])
+        print(captcha.upper())
+        print(captcha_text.upper())
+        if captcha.upper() == captcha_text.upper():
+            user = UserInfo.objects.filter(name=uname)
+            if user:
+                cpwd = check_password(upwd, user[0].password)
+                print("返回值:%s" % cpwd)
+                if cpwd:
+                    if rem_pwd:
+                        response = HttpResponse()
+                        response.set_cookie('uname', uname, expires=300, path='/')
+                        print("cookie 存入成功")
+                    # 用户，密码验证正确存入session
+                    self.request.session['uname'] = uname
+                    print("session 存入成功")
+                    self.request.session.set_expiry(0)
+                    self.ret_dic["result"] = self.flag
+                    return self.ret_dic
+                else:
+                    self.flag = 0
+                    self.ret_dic["result"] = self.flag
+                    self.ret_dic['data'] = '用户名或密码错误'
+                    return self.ret_dic
             else:
                 self.flag = 0
                 self.ret_dic["result"] = self.flag
+                self.ret_dic['data'] = '该用户不存在'
                 return self.ret_dic
         else:
             self.flag = 0
-            self.ret_dic["result"] = self.flag
+            self.ret_dic['result'] = self.flag
+            self.ret_dic['data'] = '验证码错误'
             return self.ret_dic
 
 

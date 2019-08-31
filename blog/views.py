@@ -1,5 +1,6 @@
 import json
 import os
+import io
 
 from django.conf import settings
 from django.contrib.auth import logout
@@ -94,10 +95,10 @@ class Upload(View):
 
 
 class Captcha(View):
-    @login_decorator
     def get(self, request, *args, **kwargs):
         text, image = generate_random_captcha()
-        buf = os.io.BytesIO()
+        request.session['captcha_text'] = text
+        buf = io.BytesIO()
         image.save(buf, 'jpeg')
         return HttpResponse(buf.getvalue(), 'image/jpeg')
 

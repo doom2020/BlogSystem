@@ -131,6 +131,7 @@ $(function () {
     });
     /*注册提交按钮事件*/
     $("#register_btn").on('click',function () {
+        $(this).attr('disabled', 'disabled').attr('class', 'btn btn-success');
         var uname_has = $("#uname").hasClass("has-success");
         var uphone_has = $("#uphone").hasClass("has-success");
         var uemail_has = $("#uemail").hasClass("has-success");
@@ -158,15 +159,18 @@ $(function () {
                     //    注册失败
                         alert("注册失败,用户名已存在");
                         window.location.href = "/blog/register";
+                        $('#register_btn').removeAttr('disabled').attr('class', 'btn btn-primary');
                         return false;
                     }
                 },
                 error:function (status,xhr,error) {
+                    $('#register_btn').removeAttr('disabled').attr('class', 'btn btn-primary');
                     return false;
                 }
             })
         }else{
             alert("请填写完整信息");
+            $('#register_btn').removeAttr('disabled').attr('class', 'btn btn-primary');
             return false;
         }
     });

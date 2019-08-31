@@ -22,10 +22,11 @@ $(function () {
         }
     });
     $("#login_btn").on('click',function () {
+        $(this).attr('disabled', 'disabled').attr('class', 'btn btn-default');
         var luname = $("#luname").val();
         var lupwd = $("#lupwd").val();
-        var captcha = $("#captcha_show").val();
         var rem_pwd = $("#rem_pwd").prop("checked");
+        var captcha = $('#captcha').val();
         if(luname && lupwd){
             $.ajax({
                 url:'./',
@@ -34,14 +35,16 @@ $(function () {
                 dataType:"json",
                 async:"true",
                 success:function (data,status,xhr) {
-                    if(data.result){
+                    var flag = data.result;
+                    var info = data.data;
+                    if(flag){
                     //    登陆成功,跳转至主页
-                        alert("登陆成功");
                         window.location.href = "/blog/";
                     }else{
                     //    登陆失败,刷新页面
-                        alert("用户名或密码错误");
+                        alert(info);
                         window.location.href = "/blog/login";
+                        $('#login_btn').removeAttr('disabled').attr('class', 'btn btn-primary');
                     }
                 },
                 error:function (status,xhr,error) {
@@ -50,6 +53,7 @@ $(function () {
             })
         }else{
             alert("请输入完整信息");
+            $('#login_btn').removeAttr('disabled').attr('class', 'btn btn-primary');
             return false;
         }
     });

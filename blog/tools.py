@@ -1,3 +1,8 @@
+import io
+
+from django.http import HttpResponse
+
+from blog.gen_captcha_test import generate_random_captcha
 from blog.models import UserInfo, Blog
 
 
