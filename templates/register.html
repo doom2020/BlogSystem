@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>register</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        #register_form_create{
+            margin-top: 51px;
+            background-color: lightgreen;
+            height: 588px;
+        }
+        #first_div{
+            padding-top: 120px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{% url 'index' %}" class="navbar-brand">Magic Blog System</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="#">Document</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Suggestion</a></li>
+                    <li><a href="#">Contract</a></li>
+                </ul>
+{#                <form class="navbar-form navbar-left" enctype="multipart/form-data">#}
+{#                    {% csrf_token %}#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" class="form-control" placeholder="Search...." style="width: 300px" id="search_input" name="search_input">#}
+{#                    </div>#}
+{#                    <button type="button" class="btn btn-default" id="home_search">#}
+{#                        <span class="glyphicon glyphicon-search"></span>#}
+{#                    </button>#}
+{#                </form>#}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'login' %}" id="to_login_page">Login</a></li>
+                    <li><a href="{% url 'register' %}" id="to_register_page">Register</a></li>
+{#                    <li><a href="#" id="show_down_menu">Settings</a></li>#}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{#    register form create#}
+    <form class="form-horizontal" enctype="multipart/form-data" id="register_form_create" role="form">
+        {% csrf_token %}
+        <div class="form-group" id="first_div">
+            <label class="col-md-2 col-md-offset-3 control-label">姓名</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="请输入姓名" name="uname" id="uname">
+            </div>
+            <span id="name_show"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 col-md-offset-3 control-label">手机号码</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="请输入手机号码" name="uphone" id="uphone">
+            </div>
+            <span id="phone_show"></span>
+        </div>
+        <div class="form-group" id="captcha_show">
+            <label class="col-md-2 col-md-offset-3 control-label">邮箱</label>
+            <div class="col-md-2">
+                <input type="email" class="form-control" placeholder="请输入邮箱地址" name="uemail" id="uemail">
+            </div>
+            <span id="email_show"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 col-md-offset-3 control-label">密码</label>
+            <div class="col-md-2">
+                <input type="password" class="form-control" placeholder="请输入密码" name="upwd" id="upwd">
+            </div>
+            <span id="upwd_show"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 col-md-offset-3 control-label">密码确认</label>
+            <div class="col-md-2">
+                <input type="password" class="form-control" placeholder="请再次输入密码" name="cpwd" id="cpwd">
+            </div>
+            <span id="cpwd_show"></span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-md-offset-5">
+                <button type="button" class="btn btn-default" id="register_btn">注册</button>
+                <div style="display: inline;margin-left: 70px;">
+                    <a href="{% url 'login' %}" id="has_register">已有账号？</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: #C1D879">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">version2.0.19</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/register.js' %}"></script>
+</html>

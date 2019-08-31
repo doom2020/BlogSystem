@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>upload</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container" role="contentinfo">
+        <div class="form-group">
+            <label class="col-md-2 sr-only"></label>
+            <div class="col-md-3">
+                <input type="file" class="form-control" id="upload_file" name="upload_file">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" id="upload_btn" name="upload_btn">提交</button>
+    </div>
+</body>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/upload_file.js' %}"></script>
+</html>

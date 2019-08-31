@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>index_new</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        #home_body{
+            margin-top: 50px;
+            margin-bottom: 7px;
+            width: auto;
+            height: 600px;
+        }
+        #op_function button{
+            margin: 10px 0px;
+        }
+        #show_data{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{% url 'index' %}" class="navbar-brand">Magic Blog System</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="#">Document</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Suggestion</a></li>
+                    <li><a href="#">Contract</a></li>
+                </ul>
+                {% if uname %}
+                    <form class="navbar-form navbar-left" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search...." style="width: 300px" id="search_input" name="search_input">
+                        </div>
+                        <button type="button" class="btn btn-default" id="home_search">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </form>
+                {% endif %}
+                <ul class="nav navbar-nav navbar-right">
+                    {% if uname %}
+                        <li><a href="{% url 'index' %}"><strong>{{ uname }}</strong></a></li>
+                        <li><a href="{% url 'logout' %}" id="logout_current">Logout</a></li>
+                        <li><a href="#" id="show_down_menu">Settings</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}" id="to_login_page">Login</a></li>
+                        <li><a href="{% url 'register' %}" id="to_register_page">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% if uname %}
+        <div id="home_body" style="background-color: #D9EBDF">
+            <div class="container" role="contentinfo" id="op_function">
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#height_search">高级检索</button>
+                </div>
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_blog">增加</button>
+                    <button type="button" class="btn btn-warning">删除</button>
+                    <button type="button" class="btn btn-success">更改</button>
+                    <button type="button" class="btn btn-info">详情</button>
+                    <button type="button" class="btn btn-danger">强制删除</button>
+                </div>
+            </div>
+            <div class="container" role="table" id="show_data">
+                <table class="table table-responsive table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>title</th>
+                            <th>name</th>
+                            <th>create_time</th>
+                            <th>update_time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for blog in blogs %}
+                            <tr>
+                                <td>{{ blog.id }}</td>
+                                <td><a href="#">{{ blog.title }}</a></td>
+                                <td><a href="#">{{ blog.name }}</a></td>
+                                <td>{{ blog.create_time }}</td>
+                                <td>{{ blog.update_time }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="container">
+                <nav aria-label="" class="navbar-default" style="text-align: center">
+                    <ul class="pagination">
+                        <li class="">
+                            <span aria-hidden="true">&laquo;</span>
+                        </li>
+                        <li class="active">
+                            <span>1<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>2<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>3<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>4<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>5<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>6<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>7<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>8<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>9<span class="sr-only">current</span></span>
+                        </li>
+                        <li>
+                            <span>10<span class="sr-only">current</span></span>
+                        </li>
+                        <li class="">
+                            <span aria-hidden="true">&raquo;</span>
+                        </li>
+                    </ul>
+                </nav>
+                <nav aria-label="">
+                    <ul class="pager">
+                        <li class="previous"><a href="#">上一页</a></li>
+                        <li class="next"><a href="#">下一页</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    {% endif %}
+    <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: #C1D879">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">version2.0.19</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- create modal-->
+    <div class="modal fade" id="create_blog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="">create a new blog</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="label-info col-md-2">姓名</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-info col-md-2">密码</label>
+                            <div class="col-md-4">
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">保存</button>
+                    <button type="button" class="btn btn-info">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- height search-->
+    <div class="modal fade" id="height_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="">create a new blog</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="label-info col-md-2">姓名</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-info col-md-2">密码</label>
+                            <div class="col-md-4">
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">保存</button>
+                    <button type="button" class="btn btn-info">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/blog.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</html>
