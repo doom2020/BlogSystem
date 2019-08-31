@@ -31,7 +31,7 @@ def login_decorator(func):
 class Index(View):
     def get(self, request, *args, **kwargs):
         uname = request.session.get("uname", "")
-        blogs = Blog.objects.all()[0:10]
+        blogs = Blog.objects.all()[0:8]
         return render(request, 'index.html', locals())
 
     @login_decorator

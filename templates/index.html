@@ -67,39 +67,84 @@
                 </div>
                 <div class="btn-group btn-group-lg" role="group">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_blog">增加</button>
-                    <button type="button" class="btn btn-warning">删除</button>
-                    <button type="button" class="btn btn-success">更改</button>
-                    <button type="button" class="btn btn-info">详情</button>
-                    <button type="button" class="btn btn-danger">强制删除</button>
+                    <button type="button" class="btn btn-warning" disabled="disabled">删除</button>
+                    <button type="button" class="btn btn-success" disabled="disabled">更改</button>
+                    <button type="button" class="btn btn-info" disabled="disabled">详情</button>
+                    <button type="button" class="btn btn-danger" disabled="disabled">强制删除</button>
+                </div>
+                <a href="#"><span class="glyphicon glyphicon-zoom-in" style="margin-left: 220px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-zoom-out" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-refresh" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-hourglass" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-fullscreen" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-share-alt" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-scissors" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-download-alt" style="margin-left: 20px;font-size: 25px"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-cog" style="margin-left: 20px;font-size: 25px"></span></a>
+            </div>
+            <div class="container">
+                <div class="form-horizontal" id="height_serach" style="background-color: #BCC6DE">
+                    <div class="form-group">
+                        <label class="col-md-1 text-center" style="margin-top: 8px">ID</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="search_id" name="serach_id" placeholder="输入id号">
+                        </div>
+                        <label class="col-md-1 text-center" style="margin-top: 8px">title</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="search_title" name="search_title" placeholder="输入标题">
+                        </div>
+                        <label class="col-md-1 text-center" style="margin-top: 8px">name</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="search_name" name="search_name" placeholder="输入姓名">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 text-center" style="margin-top: 8px">类型</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="search_classify" name="search_classify" placeholder="输入类型">
+                        </div>
+                        <label class="col-md-1 text-center" style="margin-top: 8px">标签</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="search_label" name="search_label" placeholder="输入标签">
+                        </div>
+                        <label class="col-md-1 text-center" style="margin-top: 8px">日期</label>
+                        <div class="col-md-3">
+                            <input type="date" class="form-control" id="search_data" name="search_data" placeholder="输入日期">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="container" role="table" id="show_data">
                 <table class="table table-responsive table-striped table-hover table-bordered">
                     <thead>
                         <tr>
+                            <th width="60px"><input type="checkbox">全选</th>
                             <th>id</th>
                             <th>title</th>
                             <th>name</th>
                             <th>create_time</th>
                             <th>update_time</th>
+                            <th width="60px" class="text-center">delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for blog in blogs %}
                             <tr>
+                                <td><input type="checkbox"></td>
                                 <td>{{ blog.id }}</td>
                                 <td><a href="#">{{ blog.title }}</a></td>
                                 <td><a href="#">{{ blog.name }}</a></td>
                                 <td>{{ blog.create_time }}</td>
                                 <td>{{ blog.update_time }}</td>
+                                <td class="text-center"><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="container">
-                <nav aria-label="" class="navbar-default" style="text-align: center">
-                    <ul class="pagination">
+                <nav aria-label="" class="navbar-default" style="text-align: center;height: 60px">
+                    <ul class="pagination" style="margin-top: 12px">
                         <li class="">
                             <span aria-hidden="true">&laquo;</span>
                         </li>
@@ -136,12 +181,6 @@
                         <li class="">
                             <span aria-hidden="true">&raquo;</span>
                         </li>
-                    </ul>
-                </nav>
-                <nav aria-label="">
-                    <ul class="pager">
-                        <li class="previous"><a href="#">上一页</a></li>
-                        <li class="next"><a href="#">下一页</a></li>
                     </ul>
                 </nav>
             </div>
