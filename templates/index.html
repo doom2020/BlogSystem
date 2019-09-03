@@ -63,7 +63,7 @@
         <div id="home_body" style="background-color: #D9EBDF">
             <div class="container" role="contentinfo" id="op_function">
                 <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#height_search">高级检索</button>
+                    <button type="button" class="btn btn-info" id="height_search">高级检索</button>
                 </div>
                 <div class="btn-group btn-group-lg" role="group">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_blog">增加</button>
@@ -82,8 +82,8 @@
                 <a href="#"><span class="glyphicon glyphicon-download-alt" style="margin-left: 20px;font-size: 25px"></span></a>
                 <a href="#"><span class="glyphicon glyphicon-cog" style="margin-left: 20px;font-size: 25px"></span></a>
             </div>
-            <div class="container">
-                <div class="form-horizontal" id="height_serach" style="background-color: #BCC6DE">
+            <div class="container sr-only" id="height_search_form">
+                <div class="form-horizontal" style="background-color: #BCC6DE">
                     <div class="form-group">
                         <label class="col-md-1 text-center" style="margin-top: 8px">ID</label>
                         <div class="col-md-3">
@@ -111,6 +111,10 @@
                         <div class="col-md-3">
                             <input type="date" class="form-control" id="search_data" name="search_data" placeholder="输入日期">
                         </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary">清空内容</button>
+                        <button type="button" class="btn btn-primary">高级搜索</button>
                     </div>
                 </div>
             </div>
@@ -230,40 +234,41 @@
         </div>
     </div>
     <!-- height search-->
-    <div class="modal fade" id="height_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="">create a new blog</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="label-info col-md-2">姓名</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="label-info col-md-2">密码</label>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">保存</button>
-                    <button type="button" class="btn btn-info">取消</button>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <div class="modal fade" id="height_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+{#        <div class="modal-dialog" role="document">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+{#                    <h4 class="modal-title" id="">create a new blog</h4>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <form class="form-horizontal" role="form">#}
+{#                        <div class="form-group">#}
+{#                            <label class="label-info col-md-2">姓名</label>#}
+{#                            <div class="col-md-4">#}
+{#                                <input type="text" class="form-control">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label class="label-info col-md-2">密码</label>#}
+{#                            <div class="col-md-4">#}
+{#                                <input type="password" class="form-control">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}
+{#                <div class="modal-footer">#}
+{#                    <button type="button" class="btn btn-success">保存</button>#}
+{#                    <button type="button" class="btn btn-info">取消</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 </body>
 <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
 <script src="{% static 'js/blog.js' %}"></script>
+<script src="{% static 'js/height_search.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 </html>
