@@ -3,6 +3,7 @@ import os
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
 from django.conf import settings
+from django.db.models import Q
 from django.http import HttpResponse
 
 from blog.models import UserInfo, Blog
@@ -220,10 +221,37 @@ class UploadCool:
         self.ret_dic["result"] = self.flag
         return self.ret_dic
 
+class HeightQueryHandle:
+    def __init__(self, request):
+        self.request = request
+
+    def get_handle(self):
+        post_type = self.request.POST.get('post_type', '')
+        height_query_cool = HeightQueryCool(self.request)
+        handle = None
+        if post_type and hasattr(height_query_cool, post_type):
+            handle = getattr(height_query_cool, post_type)
+        return handle
 
 
 
+class HeightQueryCool:
+    def __init__(self, request):
+        self.request = request
+        self.ret_dict = {'result': 1, 'data': ''}
 
 
-
+    def height_query(self):
+        req = self.request.POST
+        search_id = req.get('search_id')
+        search_title = req.get('search_title')
+        search_name = req.get('search_name')
+        search_classify = req.get('search_classify')
+        search_label = req.get('search_label')
+        search_date = req.get('search_date')
+        datas = Blog.objects.filter(Q(id=search_id)|
+                                    Q(title__contains=search_title)|
+                                    Q(name__name=search_name))
+        print(datas.values_list())
+        return self.ret_dict
 

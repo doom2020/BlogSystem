@@ -27,5 +27,7 @@ urlpatterns = [
     path('upload/', Upload.as_view(), name='upload'),
     # 验证码生产
     path('captcha/', Captcha.as_view(), name='captcha'),
+    # 高级搜索
+    path('height_query/', HeightQuery.as_view(), name='height_query'),
 
 ]

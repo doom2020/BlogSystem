@@ -82,8 +82,8 @@
                 <a href="#"><span class="glyphicon glyphicon-download-alt" style="margin-left: 20px;font-size: 25px"></span></a>
                 <a href="#"><span class="glyphicon glyphicon-cog" style="margin-left: 20px;font-size: 25px"></span></a>
             </div>
-            <div class="container sr-only" id="height_search_form">
-                <div class="form-horizontal" style="background-color: #BCC6DE">
+            <div class="container" id="height_search_form" style="display: none">
+                <div class="form-horizontal" style="background-color: #BCC6DE" id="search_form">
                     <div class="form-group">
                         <label class="col-md-1 text-center" style="margin-top: 8px">ID</label>
                         <div class="col-md-3">
@@ -113,8 +113,8 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary">清空内容</button>
-                        <button type="button" class="btn btn-primary">高级搜索</button>
+                        <button type="button" class="btn btn-primary" id="btn_clear_content">清空内容</button>
+                        <button type="button" class="btn btn-primary" id="btn_height_query">高级搜索</button>
                     </div>
                 </div>
             </div>
@@ -202,33 +202,55 @@
     </nav>
 <!-- create modal-->
     <div class="modal fade" id="create_blog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="">create a new blog</h4>
+                    <h4 class="modal-title" id="">创建新的博客</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="label-info col-md-2">姓名</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control">
+                        <div class="form-group has-feedback">
+                            <label class="col-md-1" style="margin-top: 6px">标题</label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" placeholder="标题">
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <label class="col-md-1" style="margin-top: 6px">类型</label>
+                            <div class="col-md-3">
+                                <select class="form-control">
+                                    <option>选择类型</option>
+                                    <option>1</option>
+                                    <option>1</option>
+                                    <option>1</option>
+                                    <option>1</option>
+                                </select>
+                            </div>
+                            <label class="col-md-1" style="margin-top: 6px">标签</label>
+                            <div class="col-md-3">
+                                <select class="form-control">
+                                    <option>选择标签</option>
+                                    <option>1</option>
+                                    <option>1</option>
+                                    <option>1</option>
+                                    <option>1</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="label-info col-md-2">密码</label>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control">
+                            <label class="col-md-1 sr-only" >内容</label>
+                            <div class="col-md-12">
+                                <textarea class="form-control" style="width: 100%;height: 300px" placeholder="写入内容。。。"></textarea>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success">保存</button>
-                    <button type="button" class="btn btn-info">取消</button>
+                    <button type="button" class="btn btn-primary" id="btn_second_create">再次创建</button>
+                    <button type="button" class="btn btn-success" id="btn_save_blog">保存</button>
+                    <button type="button" class="btn btn-warning" id="btn_cancel_blog">取消</button>
                 </div>
             </div>
         </div>

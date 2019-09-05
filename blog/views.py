@@ -4,7 +4,7 @@ import io
 
 from django.conf import settings
 from django.contrib.auth import logout
-from blog.action import LoginHandle, IndexHandle, RegisterHandle, UploadHandle
+from blog.action import LoginHandle, IndexHandle, RegisterHandle, UploadHandle, HeightQueryHandle
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
@@ -103,3 +103,10 @@ class Captcha(View):
         return HttpResponse(buf.getvalue(), 'image/jpeg')
 
 
+
+class HeightQuery(View):
+    def post(self, request, *args, **kwargs):
+        height_query = HeightQueryHandle(request)
+        op_handle = height_query.get_handle()
+        ret_dict = op_handle()
+        return HttpResponse(json.dumps(ret_dict))
