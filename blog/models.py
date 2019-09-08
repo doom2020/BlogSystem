@@ -90,3 +90,22 @@ class Label(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class ClientInfo(models.Model):
+    ip = models.CharField(verbose_name='客户端ip', max_length=30)
+    user_agent = models.CharField(verbose_name='请求头', max_length=500)
+    method = models.CharField(verbose_name='请求方式', max_length=10)
+    path = models.CharField(verbose_name='请求路径', max_length=50)
+    cookie = models.CharField(verbose_name='请求cookie', max_length=100)
+    date = models.DateTimeField(verbose_name='请求时间', auto_created=True)
+    count = models.CharField(verbose_name='请求次数', max_length=50)
+    is_spider = models.BooleanField(verbose_name='爬虫', default=False)
+
+    class Meta:
+        db_table = 'client_info'
+        verbose_name = 'client_info'
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.ip

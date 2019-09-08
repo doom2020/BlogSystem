@@ -21,10 +21,13 @@ class CommentAdmin(admin.ModelAdmin):
 class LabelAdmin(admin.ModelAdmin):
     pass
 
+class ClientInfoAdmin(admin.ModelAdmin):
+    pass
+
 # 在admin中注册绑定
 admin.site.register(UserInfo, UserInfoAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Classify, ClassifyAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Label, LabelAdmin)
-
+admin.site.register(ClientInfo, ClientInfoAdmin)

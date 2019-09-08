@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 自定义中间件
-    # 'middleware.my_middleware.MyMiddleware'
+    'blog.tools.MyMiddleware',
 ]
 
 ROOT_URLCONF = 'BlogSystem.urls'

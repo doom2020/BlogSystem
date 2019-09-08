@@ -66,11 +66,11 @@
                     <button type="button" class="btn btn-info" id="height_search">高级检索</button>
                 </div>
                 <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_blog">增加</button>
-                    <button type="button" class="btn btn-warning" disabled="disabled">删除</button>
-                    <button type="button" class="btn btn-success" disabled="disabled">更改</button>
-                    <button type="button" class="btn btn-info" disabled="disabled">详情</button>
-                    <button type="button" class="btn btn-danger" disabled="disabled">强制删除</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_blog" id="btn_show_modal">增加</button>
+                    <button type="button" class="btn btn-warning" disabled="disabled" id="btn_disable">删除</button>
+                    <button type="button" class="btn btn-success" disabled="disabled" id="btn_update">更改</button>
+                    <button type="button" class="btn btn-info" disabled="disabled" id="btn_detail">详情</button>
+                    <button type="button" class="btn btn-danger" disabled="disabled" id="btn_delete">强制删除</button>
                 </div>
                 <a href="#"><span class="glyphicon glyphicon-zoom-in" style="margin-left: 220px;font-size: 25px"></span></a>
                 <a href="#"><span class="glyphicon glyphicon-zoom-out" style="margin-left: 20px;font-size: 25px"></span></a>
@@ -122,7 +122,7 @@
                 <table class="table table-responsive table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th width="60px"><input type="checkbox">全选</th>
+                            <th width="60px"><input type="checkbox" id="all_choose" value="all">全选</th>
                             <th>id</th>
                             <th>title</th>
                             <th>name</th>
@@ -134,7 +134,7 @@
                     <tbody>
                         {% for blog in blogs %}
                             <tr>
-                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox" id="all_check"></td>
                                 <td>{{ blog.id }}</td>
                                 <td><a href="#">{{ blog.title }}</a></td>
                                 <td><a href="#">{{ blog.name }}</a></td>
@@ -211,16 +211,16 @@
                     <h4 class="modal-title" id="">创建新的博客</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" id="modal_form">
                         <div class="form-group has-feedback">
                             <label class="col-md-1" style="margin-top: 6px">标题</label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="标题">
+                                <input type="text" class="form-control" id="modal_blog_title" name="modal_blog_title" placeholder="标题">
                                 <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                             </div>
                             <label class="col-md-1" style="margin-top: 6px">类型</label>
                             <div class="col-md-3">
-                                <select class="form-control">
+                                <select class="form-control" id="modal_blog_classify_choose">
                                     <option>选择类型</option>
                                     <option>1</option>
                                     <option>1</option>
@@ -230,7 +230,7 @@
                             </div>
                             <label class="col-md-1" style="margin-top: 6px">标签</label>
                             <div class="col-md-3">
-                                <select class="form-control">
+                                <select class="form-control" id="modal_blog_label_choose">
                                     <option>选择标签</option>
                                     <option>1</option>
                                     <option>1</option>
@@ -242,7 +242,7 @@
                         <div class="form-group">
                             <label class="col-md-1 sr-only" >内容</label>
                             <div class="col-md-12">
-                                <textarea class="form-control" style="width: 100%;height: 300px" placeholder="写入内容。。。"></textarea>
+                                <textarea class="form-control" style="width: 100%;height: 300px" id="modal_blog_content" name="modal_blog_content" placeholder="写入内容。。。"></textarea>
                             </div>
                         </div>
                     </form>
@@ -250,47 +250,16 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btn_second_create">再次创建</button>
                     <button type="button" class="btn btn-success" id="btn_save_blog">保存</button>
-                    <button type="button" class="btn btn-warning" id="btn_cancel_blog">取消</button>
+                    <button type="button" class="btn btn-warning" id="btn_cancel_blog" >取消</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- height search-->
-{#    <div class="modal fade" id="height_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
-{#        <div class="modal-dialog" role="document">#}
-{#            <div class="modal-content">#}
-{#                <div class="modal-header">#}
-{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                        <span aria-hidden="true">&times;</span>#}
-{#                    </button>#}
-{#                    <h4 class="modal-title" id="">create a new blog</h4>#}
-{#                </div>#}
-{#                <div class="modal-body">#}
-{#                    <form class="form-horizontal" role="form">#}
-{#                        <div class="form-group">#}
-{#                            <label class="label-info col-md-2">姓名</label>#}
-{#                            <div class="col-md-4">#}
-{#                                <input type="text" class="form-control">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label class="label-info col-md-2">密码</label>#}
-{#                            <div class="col-md-4">#}
-{#                                <input type="password" class="form-control">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </form>#}
-{#                </div>#}
-{#                <div class="modal-footer">#}
-{#                    <button type="button" class="btn btn-success">保存</button>#}
-{#                    <button type="button" class="btn btn-info">取消</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
 </body>
-<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
-<script src="{% static 'js/blog.js' %}"></script>
-<script src="{% static 'js/height_search.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
+    <script src="{% static 'js/height_search.js' %}"></script>
+    <script src="{% static 'js/mymodal.js' %}"></script>
+    <script src="{% static 'js/test_checke.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
 </html>
