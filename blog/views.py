@@ -31,7 +31,19 @@ def login_decorator(func):
 class Index(View):
     def get(self, request, *args, **kwargs):
         uname = request.session.get("uname", "")
-        blogs = Blog.objects.all()[0:8]
+        page_num = kwargs['page_num']
+        print(page_num)
+        show_page_count = 8
+        begin_page = 1
+        if page_num < begin_page:
+            page_num = begin_page
+        blogs = Blog.objects.all().order_by('id')
+        sum_blog = len(blogs)
+        end_page = sum_blog // show_page_count + 1
+        if page_num > end_page:
+            page_num = end_page
+        show_blogs = blogs[(page_num - 1) * show_page_count: page_num * show_page_count]
+        page_index = len(show_blogs)
         return render(request, 'index.html', locals())
 
     @login_decorator
@@ -72,7 +84,7 @@ class Register(View):
 class Logout(View):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return redirect('/blog')
+        return redirect('/blog/1')
 
     def post(self, request, *args, **kwargs):
         pass

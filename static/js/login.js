@@ -39,7 +39,7 @@ $(function () {
                     var info = data.data;
                     if(flag){
                     //    登陆成功,跳转至主页
-                        window.location.href = "/blog/";
+                        window.location.href = "/blog/1";
                     }else{
                     //    登陆失败,刷新页面
                         alert(info);

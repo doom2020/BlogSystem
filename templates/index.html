@@ -25,11 +25,11 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="{% url 'index' %}" class="navbar-brand">Magic Blog System</a>
+                <a href="{% url 'index' 1 %}" class="navbar-brand">Magic Blog System</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="active"><a href="{% url 'index' 1 %}">Home</a></li>
                     <li><a href="#">Document</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Suggestion</a></li>
@@ -48,7 +48,7 @@
                 {% endif %}
                 <ul class="nav navbar-nav navbar-right">
                     {% if uname %}
-                        <li><a href="{% url 'index' %}"><strong>{{ uname }}</strong></a></li>
+                        <li><a href="{% url 'index' 1 %}"><strong>{{ uname }}</strong></a></li>
                         <li><a href="{% url 'logout' %}" id="logout_current">Logout</a></li>
                         <li><a href="#" id="show_down_menu">Settings</a></li>
                     {% else %}
@@ -132,7 +132,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for blog in blogs %}
+                        {% for blog in show_blogs %}
                             <tr>
                                 <td><input type="checkbox" id="all_check"></td>
                                 <td>{{ blog.id }}</td>
@@ -152,36 +152,11 @@
                         <li class="">
                             <span aria-hidden="true">&laquo;</span>
                         </li>
-                        <li class="active">
-                            <span>1<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>2<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>3<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>4<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>5<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>6<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>7<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>8<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>9<span class="sr-only">current</span></span>
-                        </li>
-                        <li>
-                            <span>10<span class="sr-only">current</span></span>
-                        </li>
+                        {% for page in show_blogs %}
+                            <li>
+                                <span>{{ forloop.counter }}<span class="sr-only">current</span></span>
+                            </li>
+                        {% endfor %}
                         <li class="">
                             <span aria-hidden="true">&raquo;</span>
                         </li>

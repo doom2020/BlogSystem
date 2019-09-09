@@ -154,7 +154,7 @@ $(function () {
                     //    注册成功
                         alert("注册成功");
                         //注册成功跳转至主页
-                        window.location.href = "/blog";
+                        window.location.href = "/blog/1";
                     }else{
                     //    注册失败
                         alert("注册失败,用户名已存在");

@@ -39,6 +39,11 @@ class FilterQuerySetBlog:
 
 class MyMiddleware(MiddlewareMixin):
     def process_request(self, request):
+        """
+        一个客户端请求过来最先执行的方法
+        :param request:
+        :return:
+        """
         date_now = datetime.now().replace(tzinfo=pytz.timezone('UTC'))
         info = request.META
         host = info['REMOTE_ADDR']
@@ -67,23 +72,58 @@ class MyMiddleware(MiddlewareMixin):
             count = client[0].count
             update_count = int(count) + 1
             if diff_time < 1 and before_user_agent != user_agent:
-                client[0].user_agent = user_agent
-                client[0].method = method
-                client[0].path = path
-                client[0].cookie = cookie
-                client[0].date = date_now
-                client[0].save()
+                client[0].is_spider = True
                 return HttpResponse('you are height level spider')
             elif update_count > 50:
-                client[0].user_agent = user_agent
-                client[0].method = method
-                client[0].path = path
-                client[0].cookie = cookie
-                client[0].date = date_now
                 client[0].is_spider = True
-                client[0].save()
                 return HttpResponse('request too busy')
+            client[0].user_agent = user_agent
+            client[0].method = method
+            client[0].path = path
+            client[0].cookie = cookie
+            client[0].date = date_now
+            client[0].count = update_count
+            client[0].save()
+
         else:
             ClientInfo(ip=host, user_agent=user_agent, method=method, path=path, cookie=cookie, date=date_now,
                        count='1').save()
             print('有新的客户端访问')
+
+    def process_view(self, request, view_func, *view_args, **view_kwargs):
+        """
+        url路径匹配之后(获得匹配正确后的视图函数名以及函数的参数)view视图函数执行之前执行
+        :param request:
+        :param func:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        pass
+
+    def process_exception(self, request, exception):
+        """
+        视图函数执行出错后执行，默认不执行
+        :param request:
+        :param exception:
+        :return:
+        """
+        pass
+
+    def process_template_response(self, request, response):
+        """
+        视图函数执行后立刻执行(要有render方法)默认不执行
+        :param request:
+        :param response:
+        :return:
+        """
+        pass
+
+    # def process_response(self, request, response):
+    #     """
+    #     请求有响应时执行
+    #     :param request:
+    #     :param response:
+    #     :return:
+    #     """
+    #     pass
