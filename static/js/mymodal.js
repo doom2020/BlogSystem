@@ -6,31 +6,41 @@ $(function () {
         var blog_title = $('#modal_blog_title').val();
         // alert(blog_title);
         //1.类型
-        var blog_classify = '';
+        var blog_classify = $('#modal_blog_classify_choose').val();
         //2.标签
-        var blog_label = '';
+        var blog_label = $('#modal_blog_label_choose').val();
         var blog_content = $('#modal_blog_content').val();
+        // alert(blog_title);
+        // alert(blog_classify);
+        // alert(blog_label);
         // alert(blog_content);
         if(blog_title && blog_classify && blog_label && blog_content){
             $.ajax({
-                url: './',
-                data: {},
+                url: './../all/',
+                data: {'post_type': 'create_blog', 'blog_title': blog_title, 'blog_classify': blog_classify, 'blog_label': blog_label, 'blog_content': blog_content},
                 type: 'post',
                 dataType: 'json',
                 success: function (data, xhr, status) {
                     var result = data.result;
-                    alert(result);
-                    $('#create_blog').modal('hide').attr('class', 'modal fade');
-                    return true;
+                    // alert(result);
+                    if(result){
+                        alert('create blog success');
+                        // 可以做一个弹出框
+                        $('#create_blog').modal('hide').attr('class', 'modal fade');
+                        window.location.href = "/blog/1";
+                        return true;
+                    }else{
+                        alert('create blog fail');
+                        return false;
+                    }
                 },
                 error: function () {
                     $('#create_blog').modal('hide').attr('class', 'modal fade');
-                    return true;
+                    return false;
                 }
             })
         }
         else{
-            // alert('hahah');
             $('#modal_blog_title').css('border', "3px solid red");
             $('#modal_blog_classify_choose').css('border', "3px solid red");
             $('#modal_blog_label_choose').css('border', "3px solid red");

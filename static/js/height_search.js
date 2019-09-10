@@ -24,7 +24,7 @@ $(function () {
         $('#height_search_form').attr('style', 'display: none');
         var post_type = 'height_query';
         $.ajax({
-            url:'./height_query/',
+            url:'./../height_query/',
             data:{'post_type': post_type,'search_id': search_id, 'search_title': search_title, 'search_name': search_name, 'search_classify': search_classify, 'search_label': search_label, 'search_date': search_date},
             type:'post',
             dataType:'json',

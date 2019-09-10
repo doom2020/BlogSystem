@@ -5,8 +5,9 @@ from django.db import models
 from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponse
+from django.utils.timezone import now
 
-from blog.models import UserInfo, Blog
+from blog.models import UserInfo, Blog, Classify, Label
 
 # 加密解密方式
 from blog.tools import FilterQuerySetBlog
@@ -255,3 +256,45 @@ class HeightQueryCool:
         print(datas.values_list())
         return self.ret_dict
 
+
+
+class AllOperationHandle:
+    def __init__(self, request):
+        self.request = request
+
+    def get_handle(self):
+        post_type = self.request.POST.get('post_type')
+        all_operation_cool = AllOperationCool(self.request)
+        handle = None
+        if post_type and hasattr(all_operation_cool, post_type):
+            handle = getattr(all_operation_cool, post_type)
+        return handle
+
+
+
+
+class AllOperationCool:
+    def __init__(self, request):
+        self.request = request
+        self.ret_dict = {'result': 0, 'data': ''}
+
+    def create_blog(self):
+        uname = self.request.session.get('uname')
+        blog_title = self.request.POST.get('blog_title')
+        blog_classify = self.request.POST.get('blog_classify')
+        blog_label = self.request.POST.get('blog_label')
+        blog_content = self.request.POST.get('blog_content')
+        user_form = UserInfo.objects.filter(name=uname)
+        classify_form = Classify.objects.filter(id=blog_classify)
+        label_form = Label.objects.filter(id=blog_label)
+        try:
+            Blog(name=user_form[0],classify=classify_form[0], label=label_form[0], title=blog_title,
+                 content=blog_content,
+                 create_time=now(), update_time=now()).save()
+        except Exception as e:
+            print('create blog fail')
+            print(e)
+            return self.ret_dict
+        self.ret_dict['result'] = 1
+        print('create blog success')
+        return self.ret_dict

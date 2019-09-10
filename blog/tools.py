@@ -110,14 +110,14 @@ class MyMiddleware(MiddlewareMixin):
         """
         pass
 
-    def process_template_response(self, request, response):
-        """
-        视图函数执行后立刻执行(要有render方法)默认不执行
-        :param request:
-        :param response:
-        :return:
-        """
-        pass
+    # def process_template_response(self, request, response):
+    #     """
+    #     视图函数执行后立刻执行(要有render方法)默认不执行
+    #     :param request:
+    #     :param response:
+    #     :return:
+    #     """
+    #     pass
 
     # def process_response(self, request, response):
     #     """

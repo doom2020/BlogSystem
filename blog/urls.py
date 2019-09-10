@@ -29,5 +29,7 @@ urlpatterns = [
     path('captcha/', Captcha.as_view(), name='captcha'),
     # 高级搜索
     path('height_query/', HeightQuery.as_view(), name='height_query'),
+    # blog的所有操作
+    path('all/', AllOperation.as_view(), name='all_operation'),
 
 ]
