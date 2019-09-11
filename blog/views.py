@@ -36,7 +36,7 @@ class Index(View):
         begin_page = 1
         if page_num < begin_page:
             page_num = begin_page
-        blogs = Blog.objects.all().order_by('id')
+        blogs = Blog.objects.filter(name__name=uname).order_by('id')
         sum_blog = len(blogs)
         end_page = sum_blog // show_page_count + 1
         if page_num > end_page:
@@ -48,7 +48,8 @@ class Index(View):
         after_page = page_num + 1
         if after_page > end_page:
             after_page = end_page
-        page_index = len(show_blogs)
+        # 只显示8页内容（1~8）or (2~9)
+        page_index = [page for page in range(1,end_page+1)][(page_num-1):page_num-1+show_page_count]
         labels = Label.objects.filter(isValid=False)
         classifies = Classify.objects.filter(isValid=False)
         return render(request, 'index.html', locals())

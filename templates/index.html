@@ -134,7 +134,7 @@
                     <tbody>
                         {% for blog in show_blogs %}
                             <tr>
-                                <td><input type="checkbox" id="all_check"></td>
+                                <td><input type="checkbox"></td>
                                 <td>{{ blog.id }}</td>
                                 <td><a href="#">{{ blog.title }}</a></td>
                                 <td><a href="#">{{ blog.name }}</a></td>
@@ -154,9 +154,9 @@
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        {% for page in show_blogs %}
-                            <li>
-                                <a href="{% url 'index' forloop.counter %}">{{ forloop.counter }}</a>
+                        {% for page in page_index %}
+                            <li {% if page == page_num %} class="active" {% endif %}>
+                                <a href="{% url 'index' page %}">{{ page }}</a>
                             </li>
                         {% endfor %}
                         <li class="">
@@ -236,6 +236,6 @@
     <script src="{% static 'js/blog.js' %}"></script>
     <script src="{% static 'js/height_search.js' %}"></script>
     <script src="{% static 'js/mymodal.js' %}"></script>
-    <script src="{% static 'js/test_checke.js' %}"></script>
+    <script src="{% static 'js/checkbox_tab.js' %}"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
 </html>
